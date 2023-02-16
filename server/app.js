@@ -40,21 +40,13 @@ for(let i = 0; i <raw_data.length; i++){
     );
     clean_data.push(data);
 }
-console.log(clean_data[0]["Segments"]["Legs"]);
+console.log(clean_data);
 
 app.listen(portHttp, async () => { 
     console.log("Hosted: http://localhost:" + portHttp);
 });
 
 app.get("/api/flight/search", async (req, res) => {
-    console.log("sending clean data");
-
-    let cleanData;
-    try {
-        
-    }
-    catch (e) {
-        console.log(e);
-    }   
-    res.json(cleanData);
+    console.log("sending clean data"); 
+    res.json(clean_data);
 });
