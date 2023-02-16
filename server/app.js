@@ -2,7 +2,7 @@ const cors = require("cors");
 const path = require("path");
 const express = require("express");
 const fs = require('fs');
-const {CleanData , Segment , Leg} = require("./cleanData");
+const { CleanData, Segment, Leg } = require("./cleanData");
 
 const app = express();
 const root = path.join();
@@ -14,19 +14,31 @@ app.use(cors());
 app.use(express.static(root));
 
 let clean_data = [];
+
 let raw_data = JSON.parse(fs.readFileSync('./Raw_data/Raw_data OW.json'));
 clean_data = clean_data.concat(cleanTheData(raw_data));
+
 raw_data = JSON.parse(fs.readFileSync('./Raw_data/Raw_data OW - 2pax .json'));
 clean_data = clean_data.concat(cleanTheData(raw_data));
+
 raw_data = JSON.parse(fs.readFileSync('./Raw_data/Raw_data RT - 2pax .json'));
 clean_data = clean_data.concat(cleanTheData(raw_data));
 
-console.log(clean_data);
 fs.writeFileSync('clean_data.json', JSON.stringify(clean_data));
 
-function cleanTheData(raw_data){
+
+app.listen(portHttp, async () => {
+    console.log("Hosted: http://localhost:" + portHttp);
+});
+
+app.get("/api/flight/search", async (req, res) => {
+    console.log("sending clean data");
+    res.json(clean_data);
+});
+
+function cleanTheData(raw_data) {
     let clean_data = [];
-    for(let i = 0; i <raw_data.length; i++){
+    for (let i = 0; i < raw_data.length; i++) {
         let legs = [];
         raw_data[i]["Segments"][0]["Legs"].forEach(element => {
             legs.push(new Leg(
@@ -52,13 +64,3 @@ function cleanTheData(raw_data){
     }
     return clean_data;
 }
-
-
-app.listen(portHttp, async () => { 
-    console.log("Hosted: http://localhost:" + portHttp);
-});
-
-app.get("/api/flight/search", async (req, res) => {
-    console.log("sending clean data"); 
-    res.json(clean_data);
-});
