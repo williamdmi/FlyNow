@@ -2,7 +2,7 @@ const cors = require("cors");
 const path = require("path");
 const express = require("express");
 const fs = require('fs');
-const { CleanData, Segment, Leg } = require("./cleanData");
+const { CleanData, Segment, Leg } = require("./Classes");
 
 const app = express();
 const root = path.join();

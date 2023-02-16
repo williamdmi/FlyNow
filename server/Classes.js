@@ -1,7 +1,7 @@
 class CleanData {
-    ID; 
-    Segments; 
-    AveragePrice; 
+    ID;
+    Segments;
+    AveragePrice;
     CurrencySymbol;
     constructor(ID, segments, AveragePrice, CurrencySymbol) {
         this.ID = ID;
@@ -15,20 +15,20 @@ class Segment {
     Legs;
     SegmentDuration;
     AirlineCode;
-    constructor(legs,SegmentDuration,AirlineCode) {
+    constructor(legs, SegmentDuration, AirlineCode) {
         this.Legs = legs;
         this.SegmentDuration = SegmentDuration;
         this.AirlineCode = AirlineCode;
     }
 }
 
-class Leg{
+class Leg {
     DeparturePoint;
     ArrivalPoint;
     FlightNumber;
     AirlineName;
     AirlineCode;
-    constructor(departurePoint,arrivalPoint,flightNumber, airlineName, airlineCode){
+    constructor(departurePoint, arrivalPoint, flightNumber, airlineName, airlineCode) {
         this.DeparturePoint = departurePoint;
         this.ArrivalPoint = arrivalPoint;
         this.FlightNumber = flightNumber;
