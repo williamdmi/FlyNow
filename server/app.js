@@ -42,23 +42,23 @@ function cleanTheData(raw_data) {
         let legs = [];
         raw_data[i]["Segments"][0]["Legs"].forEach(element => {
             legs.push(new Leg(
-                element["DeparturePoint"],
-                element["ArrivalPoint"],
-                element["FlightNumber"],
-                element["AirlineName"],
-                element["AirlineCode"]
+                element["DeparturePoint"] || null,
+                element["ArrivalPoint"] || null,
+                element["FlightNumber"] || null,
+                element["AirlineName"] || null,
+                element["AirlineCode"] || null
             ));
         });
         const segment = new Segment(
             legs,
-            raw_data[i]["Segments"][0]["SegmentDuration"],
-            raw_data[i]["Segments"][0]["ValidatingCarrier"]
+            raw_data[i]["Segments"][0]["SegmentDuration"] || null,
+            raw_data[i]["Segments"][0]["ValidatingCarrier"] || null
         );
         const data = new CleanData(
-            raw_data[i]["ID"],
+            raw_data[i]["ID"] || null,
             segment,
-            raw_data[i]["AveragePrice"],
-            raw_data[i]["CurrencySymbol"]
+            raw_data[i]["AveragePrice"] || null,
+            raw_data[i]["CurrencySymbol"] || null
         );
         clean_data.push(data);
     }
