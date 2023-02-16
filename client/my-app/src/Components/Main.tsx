@@ -1,13 +1,13 @@
 import React from 'react';
 import '../Styles/Main.scss';
 
-
-const buttons = ['socksButton', 'officersButton', 'locationsButton', 'locationsHistoryButton']
 class Main extends React.Component {
-    state = {
-        
-    };
-
+    state = {clean_data: []};
+    async componentDidMount() {
+        const json = await (await fetch(`http://127.0.0.1:4000/api/flight/search`)).json() as Array<any>;
+        this.setState({ clean_data: { json }})
+        console.log(this.state.clean_data); 
+    }
     render() {
         return (
             <div className="main">
