@@ -17,8 +17,18 @@ const raw_data = JSON.parse(fs.readFileSync('./Raw_data/Raw_data OW.json'));
 let clean_data = [];
 
 for(let i = 0; i <raw_data.length; i++){
+    let legs = [];
+    raw_data[i]["Segments"][0]["Legs"].forEach(element => {
+        legs.push(new Leg(
+            element["DeparturePoint"],
+            element["ArrivalPoint"],
+            element["FlightNumber"],
+            element["AirlineName"],
+            element["AirlineCode"]
+        ));
+    });
     const segment = new Segment(
-        raw_data[i]["Segments"][0]["Legs"],
+        legs,
         raw_data[i]["Segments"][0]["SegmentDuration"],
         raw_data[i]["Segments"][0]["ValidatingCarrier"]
     );
@@ -30,7 +40,7 @@ for(let i = 0; i <raw_data.length; i++){
     );
     clean_data.push(data);
 }
-console.log(clean_data[0]["segments"]["legs"]);
+console.log(clean_data[0]["Segments"]["Legs"]);
 
 app.listen(portHttp, async () => { 
     console.log("Hosted: http://localhost:" + portHttp);
