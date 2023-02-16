@@ -1,9 +1,10 @@
 import React from 'react';
 import '../Styles/Main.scss';
 import '../Styles/FlightContainer.scss';
+import FlightBody from './FlightBody';
 
 class FlightContainer extends React.Component<{ flightInfo:any}, {}> {
-    state = {};
+    state = {open: false};
     async componentDidMount() {
 
     }
@@ -42,7 +43,7 @@ class FlightContainer extends React.Component<{ flightInfo:any}, {}> {
                 </tr>
             </thead>
             <tbody>
-                {}
+                <FlightBody open={this.state.open}/>
             </tbody>
         </table>
         );
