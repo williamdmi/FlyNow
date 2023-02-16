@@ -30,6 +30,10 @@ class FlightContainer extends React.Component<{ flightInfo:any}, {}> {
         const currencySymbol = this.props.flightInfo["CurrencySymbol"];
         return(<div className='airline'>{averagePrice}{currencySymbol}</div>)
     }
+    selectOpen() {
+        this.setState({ open: !this.state.open })
+    }
+
     render() {
         return (
             <table className='data-table'>
@@ -39,7 +43,7 @@ class FlightContainer extends React.Component<{ flightInfo:any}, {}> {
                     <th>{this.getDestinationAndDate()}</th>
                     <th>חברת תעופה{this.getAF()}</th>
                     <th>מחיר לנוסע  {this.getPrice()}</th>
-                    <th>הצג \ הסתר מסלול{}</th>
+                    <th className="show-button" onClick={() => this.selectOpen()}>הצג \ הסתר מסלול{}</th>
                 </tr>
             </thead>
             <tbody>
