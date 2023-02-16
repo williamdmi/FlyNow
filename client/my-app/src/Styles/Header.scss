@@ -1,0 +1,27 @@
+$honey-color: #37caeb;
+$main-color:#253037;
+.header{
+    -webkit-user-select: none; /* Safari */
+            -ms-user-select: none; /* IE 10 and IE 11 */
+            user-select: none; /* Standard syntax */
+    position: absolute;
+    display: flex;
+    height: 10vh;
+    width: 100vw;
+    background-color: $main-color;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $honey-color;
+    h1{
+        font-size: min(5vh, 4vw);
+        font-weight: 100;
+    }
+    img{
+        position: absolute;
+        height: 90%;
+        right: 2vw;
+    }
+}
