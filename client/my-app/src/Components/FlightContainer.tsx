@@ -43,7 +43,7 @@ class FlightContainer extends React.Component<{ flightInfo:any}, {}> {
                 </tr>
             </thead>
             <tbody>
-                <FlightBody open={this.state.open}/>
+                <FlightBody open={this.state.open} flightInfo={this.props.flightInfo}/>
             </tbody>
         </table>
         );
