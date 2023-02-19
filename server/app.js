@@ -65,7 +65,12 @@ function cleanTheData(raw_data) {
     return clean_data;
 }
 
-getMaxAndMinPrice(clean_data);
+console.log(getMaxAndMinPrice(clean_data));
+console.log(getAllAF(clean_data));
+
+function getAllAF(clean_data){
+    return clean_data.map(element => element["Segments"]["Legs"][0]["AirlineName"]).filter((value, index, self) => self.indexOf(value) === index)
+}
 
 function getMaxAndMinPrice(clean_data) {
     let minPrice = clean_data[0]["AveragePrice"];
@@ -78,6 +83,6 @@ function getMaxAndMinPrice(clean_data) {
             minPrice = element["AveragePrice"];
         }
     });
-    console.log(minPrice, maxPrice);
+    return [minPrice, maxPrice];
 }
 
