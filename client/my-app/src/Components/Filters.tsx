@@ -2,39 +2,46 @@ import React from 'react';
 import '../Styles/Filters.scss';
 import CheckList from './CheckList';
 
-class Filters extends React.Component {
+class Filters extends React.Component<{ setFilterOptions: any }, {}> {
     state = {
-        minPrice: 0,
-        maxPrice: 0,
+        priceRanges: ["0-500", "500-1000", "1000-1500", "1500-2000"],
+        selectedPriceRange: [],
         afNames: [],
         selectedAFNames: [],
         stops: [],
-        selectedStops:[]
+        selectedStops: []
     };
 
     async componentDidMount() {
         const filterOptions: Array<any> = await (await fetch(`http://127.0.0.1:4000/api/filterOptions`)).json() as Array<any>;
         this.setState({
-            minPrice: filterOptions[0],
-            maxPrice: filterOptions[1],
             afNames: filterOptions[2],
             stops: filterOptions[3]
         })
     }
 
-    setSelectedAFNames = (selectedAFNames: Array<any>) =>{
-        this.setState({selectedAFNames : selectedAFNames});
+    async componentDidUpdate(prevProps: any, prevState: any) {      
+        if(prevState !== this.state){
+            this.props.setFilterOptions([this.state.selectedPriceRange, this.state.selectedAFNames, this.state.selectedStops]);
+        }
     }
-    setSelectedStops = (selectedStops: Array<any>) =>{
-        this.setState({selectedStops : selectedStops});
+
+    setSelectedAFNames = (selectedAFNames: Array<any>) => {
+        this.setState({ selectedAFNames: selectedAFNames });
+    }
+    setSelectedStops = (selectedStops: Array<any>) => {
+        this.setState({ selectedStops: selectedStops });
+    }
+    setSelectedPriceRange = (selectedPriceRange: Array<any>) => {
+        this.setState({ selectedPriceRange: selectedPriceRange });
     }
 
     render() {
         return (
             <div className="filter-container">
-                <CheckList checkList={this.state.afNames} setSelected={this.setSelectedAFNames} nameOfList="Airline:"/>
-                <CheckList checkList={this.state.stops} setSelected={this.setSelectedStops} nameOfList="Number Of Stops:"/>
-                <div> </div>
+                <CheckList checkList={this.state.afNames} setSelected={this.setSelectedAFNames} nameOfList="Airline:" />
+                <CheckList checkList={this.state.stops} setSelected={this.setSelectedStops} nameOfList="Number of stops:" />
+                <CheckList checkList={this.state.priceRanges} setSelected={this.setSelectedPriceRange} nameOfList="Price ranges:" />
             </div>
         );
     }

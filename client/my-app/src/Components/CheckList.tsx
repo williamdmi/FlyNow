@@ -6,7 +6,7 @@ function CheckList(props:any) {
     const checkList = props.checkList;
     // Add/Remove checked item from list
     const handleCheck = (event:any) => {
-      var updatedList = [...checked];
+      let updatedList = [...checked];
       if (event.target.checked) {
         updatedList = [...checked, event.target.value];
       } else {
@@ -17,7 +17,7 @@ function CheckList(props:any) {
     };
   
     // Return classes based on whether item is checked
-    var isChecked = (item:any) =>
+    let isChecked = (item:any) =>
       checked.includes(item) ? "checked-item" : "not-checked-item";
   
     return (
