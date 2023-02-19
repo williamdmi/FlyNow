@@ -30,7 +30,7 @@ class FlightContainer extends React.Component<{ flightInfo: any }, {}> {
     getPrice() {
         const averagePrice = this.props.flightInfo["AveragePrice"];
         const currencySymbol = this.props.flightInfo["CurrencySymbol"];
-        return (<div className='airline'>{averagePrice}{currencySymbol}</div>)
+        return (<div className='price'>{averagePrice}{currencySymbol}</div>)
     }
     selectOpen() {
         this.setState({ open: !this.state.open })

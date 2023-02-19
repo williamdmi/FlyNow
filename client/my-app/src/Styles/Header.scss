@@ -3,8 +3,8 @@ $main-color:#253037;
 .header{
     position: absolute;
     display: flex;
-    height: 10vh;
-    width: 100vw;
+    height: 10%;
+    width: 100%;
     background-color: $main-color;
     top: 0;
     left: 0;
@@ -15,7 +15,7 @@ $main-color:#253037;
     border-bottom: 1px solid $light-blue;
     h1{
         font-size: min(5.5vh, 4vw);
-        font-weight: 100;
+        font-weight: 400;
     }
     img{
         position: absolute;
