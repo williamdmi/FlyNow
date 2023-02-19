@@ -11,7 +11,8 @@ class FlightBody extends React.Component<{ open: boolean, flightInfo: any }, {}>
 
     getFlightInfoAndDate(departureInfo: any) {
         const city = departureInfo["City"];
-        const date = departureInfo["DateTime"];
+        let date = departureInfo["DateTime"].replace("T", " ");
+        date = date.substring(0, date.length-3);
         return (<> <div className='city'>{city}</div>
             <div className='date'>{date}</div> </>);
     }
