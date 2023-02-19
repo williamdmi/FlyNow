@@ -21,9 +21,8 @@ function CheckList(props:any) {
       checked.includes(item) ? "checked-item" : "not-checked-item";
   
     return (
-      <div className="app">
         <div className="checkList">
-          <div className="title">{props.nameOfList}</div>
+          <h3 className="title">{props.nameOfList}</h3>
           <div className="list-container">
             {checkList.map((item:any, index:any) => (
               <div key={index}>
@@ -33,7 +32,6 @@ function CheckList(props:any) {
             ))}
           </div>
         </div>
-      </div>
     );
   }
   
