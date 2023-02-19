@@ -13,6 +13,9 @@ $gl-lg : "screen and (max-width: 80em)"; // max 1280px
 
 .show-button{
     color: rgb(216, 22, 22);
+    &:hover{
+        cursor: pointer;
+    }
 }
 
 table {

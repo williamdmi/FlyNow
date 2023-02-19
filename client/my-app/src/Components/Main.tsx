@@ -1,6 +1,7 @@
 import React from 'react';
 import '../Styles/Main.scss';
 import FlightContainer from './FlightContainer';
+import Filters from './Filters';
 
 class Main extends React.Component {
     state = {clean_data: [], flightContainers: []};
@@ -19,6 +20,7 @@ class Main extends React.Component {
     render() {
         return (
             <div className="main">
+                <Filters/>
                 {this.state.flightContainers}
             </div>
         );
