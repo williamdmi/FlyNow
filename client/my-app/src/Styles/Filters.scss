@@ -1,9 +1,23 @@
 .filter-container{
     display: flex;
+    justify-content: space-around;
     align-self: center;
     background-color: rgba(255, 255, 255, 0.7);
     border-radius: 8px;
     width: 60vw;
     height: 20vh;
     margin-bottom: 5vh;
+
+    h3{
+        text-decoration: underline;
+    }
+
+    .check-list{
+        display:flex;
+        flex-direction: column;
+        
+        .list-container{
+            overflow: auto;
+        }
+    }
 }

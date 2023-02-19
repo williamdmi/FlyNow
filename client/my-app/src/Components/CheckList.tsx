@@ -21,7 +21,7 @@ function CheckList(props:any) {
       checked.includes(item) ? "checked-item" : "not-checked-item";
   
     return (
-        <div className="checkList">
+        <div className="check-list">
           <h3 className="title">{props.nameOfList}</h3>
           <div className="list-container">
             {checkList.map((item:any, index:any) => (

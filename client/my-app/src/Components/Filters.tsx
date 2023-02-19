@@ -40,8 +40,8 @@ class Filters extends React.Component<{ setFilterOptions: any }, {}> {
         return (
             <div className="filter-container">
                 <CheckList checkList={this.state.afNames} setSelected={this.setSelectedAFNames} nameOfList="Airline:" />
-                <CheckList checkList={this.state.stops} setSelected={this.setSelectedStops} nameOfList="Number of stops:" />
                 <CheckList checkList={this.state.priceRanges} setSelected={this.setSelectedPriceRange} nameOfList="Price ranges:" />
+                <CheckList checkList={this.state.stops} setSelected={this.setSelectedStops} nameOfList="Number of stops:" />
             </div>
         );
     }
