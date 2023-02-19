@@ -1,9 +1,11 @@
 $light-blue: #37caeb;
 $main-color:#253037;
+
+//Header Style
 .header{
     position: absolute;
     display: flex;
-    height: 10%;
+    height: 9%;
     width: 100%;
     background-color: $main-color;
     top: 0;
@@ -13,10 +15,14 @@ $main-color:#253037;
     justify-content: center;
     color: $light-blue;
     border-bottom: 1px solid $light-blue;
+
+    //Middle text style
     h1{
         font-size: min(5.5vh, 4vw);
         font-weight: 400;
     }
+
+    //Side icon style
     img{
         position: absolute;
         height: 90%;

@@ -4,6 +4,7 @@ function CheckList(props: any) {
     // State with list of all checked item
     const [checked, setChecked]: any = useState([]);
     const checkList = props.checkList;
+
     // Add/Remove checked item from list
     const handleCheck = (event: any) => {
         let updatedList = [...checked];
