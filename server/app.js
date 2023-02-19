@@ -64,3 +64,20 @@ function cleanTheData(raw_data) {
     }
     return clean_data;
 }
+
+getMaxAndMinPrice(clean_data);
+
+function getMaxAndMinPrice(clean_data) {
+    let minPrice = clean_data[0]["AveragePrice"];
+    let maxPrice = 0;
+    clean_data.forEach(element => {
+        if (element["AveragePrice"] > maxPrice) {
+            maxPrice = element["AveragePrice"];
+        }
+        else if (element["AveragePrice"] < minPrice) {
+            minPrice = element["AveragePrice"];
+        }
+    });
+    console.log(minPrice, maxPrice);
+}
+

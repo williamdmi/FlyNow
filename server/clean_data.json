@@ -5,7 +5,7 @@
             "Legs": [
                 {
                     "DeparturePoint": {
-                        "AirportName": "Ben Gurion International Airport",
+                        "AirportName": "Ben Gudcrion International Airport",
                         "AirportCode": "TLV",
                         "City": "תל אביב",
                         "DateTime": "2022-05-25T04:45:00"
@@ -42,7 +42,7 @@
             "AirlineCode": "AF"
         },
         "AveragePrice": 1981,
-        "[]]": "$"
+        "CurrencySymbol": "$"
     },
     {
         "ID": "b0a785c8-1418-4c80-bec3-e84f2c4b2525",
