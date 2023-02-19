@@ -4,7 +4,7 @@ import CheckList from './CheckList';
 
 class Filters extends React.Component<{ setFilterOptions: any }, {}> {
     state = {
-        priceRanges: ["0-500", "500-1000", "1000-1500", "1500-9999"],
+        priceRanges: ["0-500", "500-1000", "1000-1500", "1500-3000"],
         selectedPriceRange: [],
         afNames: [],
         selectedAFNames: [],

@@ -34,9 +34,9 @@ class Main extends React.Component {
         let filteredArray: Array<any> = [];
         if (filterOptions.length > 0) {
             filterOptions.forEach(element => {
-                const [min, max] = (element as unknown as String).split('-');
+                let [min, max] = (element as unknown as String).split('-');
                 filteredArray = filteredArray.concat(arrayToFilter.filter(element => {
-                    return element["AveragePrice"] > min && element["AveragePrice"] > max;
+                    return element["AveragePrice"] > Number(min) && element["AveragePrice"] < Number(max);
                 }));
             })
             return filteredArray;
