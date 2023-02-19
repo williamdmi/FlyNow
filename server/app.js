@@ -26,6 +26,10 @@ clean_data = clean_data.concat(cleanTheData(raw_data));
 
 fs.writeFileSync('clean_data.json', JSON.stringify(clean_data));
 
+let [minPrice, maxPrice] = getMinAndMaxPrice(clean_data);
+let allAF = getAllAF(clean_data);
+let numbersOfStops = getAllNumbersOfStops(clean_data);
+
 
 app.listen(portHttp, async () => {
     console.log("Hosted: http://localhost:" + portHttp);
@@ -34,6 +38,11 @@ app.listen(portHttp, async () => {
 app.get("/api/flight/search", async (req, res) => {
     console.log("sending clean data");
     res.json(clean_data);
+});
+
+app.get("/api/filterOptions", async (req, res) => {
+    console.log("sending filter Options");
+    res.json([minPrice , maxPrice , allAF , numbersOfStops]);
 });
 
 function cleanTheData(raw_data) {
@@ -65,10 +74,6 @@ function cleanTheData(raw_data) {
     return clean_data;
 }
 
-console.log(getMaxAndMinPrice(clean_data));
-console.log(getAllAF(clean_data));
-console.log(getMaxAndMinStops(clean_data));
-
 function getAllAF(clean_data){
     return clean_data.map(element => element["Segments"]["Legs"][0]["AirlineName"]).filter((value, index, self) => self.indexOf(value) === index).sort()
 }
@@ -77,7 +82,7 @@ function getAllNumbersOfStops(clean_data){
     return clean_data.map(element => element["Segments"]["Legs"].length).filter((value, index, self) => self.indexOf(value) === index).sort()
 }
 
-function getMaxAndMinPrice(clean_data) {
+function getMinAndMaxPrice(clean_data) {
     let minPrice = clean_data[0]["AveragePrice"];
     let maxPrice = 0;
     clean_data.forEach(element => {
