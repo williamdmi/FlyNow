@@ -1,10 +1,11 @@
 import React from 'react';
 import '../Styles/Filters.scss';
 import CheckList from './CheckList';
+import MultiRangeSlider from './MultiRangeSlider';
 
 class Filters extends React.Component<{ setFilterOptions: any }, {}> {
     state = {
-        priceRanges: ["0-500", "500-1000", "1000-1500", "1500-3000"],
+        priceRanges: [0, 0],
         selectedPriceRange: [],
         afNames: [],
         selectedAFNames: [],
@@ -32,16 +33,22 @@ class Filters extends React.Component<{ setFilterOptions: any }, {}> {
     setSelectedStops = (selectedStops: Array<any>) => {
         this.setState({ selectedStops: selectedStops });
     }
-    setSelectedPriceRange = (selectedPriceRange: Array<any>) => {
-        this.setState({ selectedPriceRange: selectedPriceRange });
+    setSelectedPriceRange = (min: any, max: any) => {
+        if (!(this.state.selectedPriceRange[0] == min && this.state.selectedPriceRange[1] == max)) {
+            this.setState({ selectedPriceRange: [min, max] });
+        }
     }
 
     render() {
         return (
             <div className="filter-container">
                 <CheckList checkList={this.state.afNames} setSelected={this.setSelectedAFNames} nameOfList="Airline:" />
-                <CheckList checkList={this.state.priceRanges} setSelected={this.setSelectedPriceRange} nameOfList="Price ranges:" />
                 <CheckList checkList={this.state.stops} setSelected={this.setSelectedStops} nameOfList="Number of stops:" />
+                <MultiRangeSlider
+                    min={0}
+                    max={3000}
+                    onChange={({ min, max }) => this.setSelectedPriceRange(min, max)}
+                />
             </div>
         );
     }

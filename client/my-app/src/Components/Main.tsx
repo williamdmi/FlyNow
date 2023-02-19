@@ -31,17 +31,9 @@ class Main extends React.Component {
     }
 
     filterPrice(arrayToFilter: Array<any>, filterOptions: Array<any>): Array<any> {
-        let filteredArray: Array<any> = [];
-        if (filterOptions.length > 0) {
-            filterOptions.forEach(element => {
-                let [min, max] = (element as unknown as String).split('-');
-                filteredArray = filteredArray.concat(arrayToFilter.filter(element => {
-                    return element["AveragePrice"] > Number(min) && element["AveragePrice"] < Number(max);
-                }));
-            })
-            return filteredArray;
-        }
-        return arrayToFilter;
+        return arrayToFilter.filter(element =>{
+            return element["AveragePrice"] > Number(filterOptions[0]) && element["AveragePrice"] < Number(filterOptions[1]);
+        });
     }
 
     filterAirlineName(arrayToFilter: Array<any>, filterOptions: Array<any>): Array<any> {
