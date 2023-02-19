@@ -20,8 +20,8 @@ class Filters extends React.Component<{ setFilterOptions: any }, {}> {
         })
     }
 
-    async componentDidUpdate(prevProps: any, prevState: any) {      
-        if(prevState !== this.state){
+    async componentDidUpdate(prevProps: any, prevState: any) {
+        if (prevState !== this.state) {
             this.props.setFilterOptions([this.state.selectedPriceRange, this.state.selectedAFNames, this.state.selectedStops]);
         }
     }

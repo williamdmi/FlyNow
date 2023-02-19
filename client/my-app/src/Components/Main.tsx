@@ -27,7 +27,7 @@ class Main extends React.Component {
         filtered_data = this.filterPrice(filtered_data, this.state.filterOptions[0]);
         filtered_data = this.filterAirlineName(filtered_data, this.state.filterOptions[1]);
         filtered_data = this.filterConnections(filtered_data, this.state.filterOptions[2]);
-        this.setState({ filtered_data: filtered_data, flightContainers: this.createFlightContainers(filtered_data)});
+        this.setState({ filtered_data: filtered_data, flightContainers: this.createFlightContainers(filtered_data) });
     }
 
     filterPrice(arrayToFilter: Array<any>, filterOptions: Array<any>): Array<any> {
