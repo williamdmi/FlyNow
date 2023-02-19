@@ -67,9 +67,14 @@ function cleanTheData(raw_data) {
 
 console.log(getMaxAndMinPrice(clean_data));
 console.log(getAllAF(clean_data));
+console.log(getMaxAndMinStops(clean_data));
 
 function getAllAF(clean_data){
-    return clean_data.map(element => element["Segments"]["Legs"][0]["AirlineName"]).filter((value, index, self) => self.indexOf(value) === index)
+    return clean_data.map(element => element["Segments"]["Legs"][0]["AirlineName"]).filter((value, index, self) => self.indexOf(value) === index).sort()
+}
+
+function getAllNumbersOfStops(clean_data){
+    return clean_data.map(element => element["Segments"]["Legs"].length).filter((value, index, self) => self.indexOf(value) === index).sort()
 }
 
 function getMaxAndMinPrice(clean_data) {
@@ -85,4 +90,5 @@ function getMaxAndMinPrice(clean_data) {
     });
     return [minPrice, maxPrice];
 }
+
 
