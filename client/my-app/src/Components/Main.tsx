@@ -83,7 +83,7 @@ class Main extends React.Component {
 
     render() {
         return (
-            <div className="main">
+            <div className="main" style={{backgroundImage: "url(Hawaii.jpg)"}}>
                 <Filters setFilterOptions={this.setFilterOptions} />
                 {this.state.flightContainers}
             </div>

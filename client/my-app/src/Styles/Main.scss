@@ -4,7 +4,6 @@ $honey-color: #eba937;
 $main-color:#253037;
 
 body{
-    background-color: aliceblue;
     font-family: "Roboto", "sans-serif";
     background-color:$main-color;
     color: rgb(0, 0, 0);
@@ -14,7 +13,9 @@ body{
     display: flex;
     flex-direction: column;
     width: 100%;
-    margin-top: 20vh;
     align-items: center;
     justify-content: center;
+    background-position: center;
+    background-attachment: fixed;
+    background-size: 100%;
 }
