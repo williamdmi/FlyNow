@@ -24,6 +24,7 @@ class Main extends React.Component {
         }
     }
 
+    //TODO: make more efficient
     //Call to all the filtering functions and update the filtered_data, flightContainers states
     filterData() {
         let filtered_data: Array<any> = [...this.state.clean_data];

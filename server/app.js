@@ -48,15 +48,29 @@ app.get("/api/flight/search", async (req, res) => {
 //Set the filter options variables to the client
 app.get("/api/filterOptions", async (req, res) => {
     console.log("sending filter Options");
-    res.json([minPrice , maxPrice , allAF , numbersOfLegs]);
+    res.json([minPrice, maxPrice, allAF, numbersOfLegs]);
 });
 
 //Get the raw data and return the data as an object array after removing all the unnecessary information
 function cleanTheData(raw_data) {
     let clean_data = [];
     for (let i = 0; i < raw_data.length; i++) {
+        const segments = createSegments(raw_data[i]["Segments"]);
+        const data = new CleanData(
+            raw_data[i]["ID"] || null,
+            segments,
+            raw_data[i]["AveragePrice"] || null,
+            raw_data[i]["CurrencySymbol"] || null
+        );
+        clean_data.push(data);
+    }
+    return clean_data;
+}
+
+function createSegments(raw_segments) {
+    let segments = raw_segments.map(element => {
         let legs = [];
-        raw_data[i]["Segments"][0]["Legs"].forEach(element => {
+        element["Legs"].forEach(element => {
             legs.push(new Leg(
                 element["DeparturePoint"] || null,
                 element["ArrivalPoint"] || null,
@@ -67,28 +81,36 @@ function cleanTheData(raw_data) {
         });
         const segment = new Segment(
             legs,
-            raw_data[i]["Segments"][0]["SegmentDuration"] || null,
-            raw_data[i]["Segments"][0]["ValidatingCarrier"] || null
+            element["SegmentDuration"] || null,
+            element["ValidatingCarrier"] || null
         );
-        const data = new CleanData(
-            raw_data[i]["ID"] || null,
-            segment,
-            raw_data[i]["AveragePrice"] || null,
-            raw_data[i]["CurrencySymbol"] || null
-        );
-        clean_data.push(data);
-    }
-    return clean_data;
+        return segment;
+    });
+    return segments;
 }
 
 //Return an array of unique airline names
-function getAllAirlines(clean_data){
-    return clean_data.map(element => element["Segments"]["Legs"][0]["AirlineName"]).filter((value, index, self) => self.indexOf(value) === index).sort()
+function getAllAirlines(clean_data) {
+    let arr = clean_data.map(element => {
+        return element["Segments"].map(segment => {
+            return segment["Legs"].map(leg => {
+                return leg["AirlineName"]
+            })
+        })
+    }).flat(2).filter((value, index, self) => self.indexOf(value) === index).sort();
+    return arr;
 }
 
 //Returns an array of unique number of legs
-function getAllNumbersOfLegs(clean_data){
-    return clean_data.map(element => element["Segments"]["Legs"].length).filter((value, index, self) => self.indexOf(value) === index).sort()
+function getAllNumbersOfLegs(clean_data) {
+    let arr = clean_data.map(element => {
+        let count = 0;
+        element["Segments"].forEach(segment => {
+            count += segment["Legs"].length;
+        })
+        return count;
+    }).filter((value, index, self) => self.indexOf(value) === index).sort();
+    return arr;
 }
 
 //Returns the minimum and maximum prices
