@@ -8,8 +8,8 @@ class FlightContainer extends React.Component<{ flightInfo: any }, {}> {
 
     //Returns a jsx element with the info about the departure point
     getDeparturePointAndDate(): JSX.Element {
-        const city: string = this.props.flightInfo["Segments"]["Legs"][0]["DeparturePoint"]["City"];
-        let date: string = this.props.flightInfo["Segments"]["Legs"][0]["DeparturePoint"]["DateTime"].replaceAll("-", "/").replace("T", " - ");
+        const city: string = this.props.flightInfo["Segments"][0]["Legs"][0]["DeparturePoint"]["City"];
+        let date: string = this.props.flightInfo["Segments"][0]["Legs"][0]["DeparturePoint"]["DateTime"].replaceAll("-", "/").replace("T", " - ");
         date = date.substring(0, date.length - 3);
         return (<> <div className='city'>{city}</div>
             <div className='date'>{date}</div> </>);
@@ -17,7 +17,7 @@ class FlightContainer extends React.Component<{ flightInfo: any }, {}> {
 
     //Returns a jsx element with the info about the destination point
     getDestinationAndDate(): JSX.Element {
-        const lastLeg: any = this.props.flightInfo["Segments"]["Legs"].slice(-1)[0];
+        const lastLeg: any = this.props.flightInfo["Segments"][0]["Legs"].slice(-1)[0];
         const city: string = lastLeg["ArrivalPoint"]["City"];
         let date: string = lastLeg["ArrivalPoint"]["DateTime"].replaceAll("-", "/").replace("T", " - ");
         date = date.substring(0, date.length - 3);
@@ -27,7 +27,7 @@ class FlightContainer extends React.Component<{ flightInfo: any }, {}> {
 
     //Returns a jsx element with the airline name
     getAirline(): JSX.Element {
-        const airline: string = this.props.flightInfo["Segments"]["Legs"][0]["AirlineName"];
+        const airline: string = this.props.flightInfo["Segments"][0]["Legs"][0]["AirlineName"];
         return (<div className='airline'>{airline}</div>)
     }
 
