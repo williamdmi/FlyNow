@@ -2,12 +2,12 @@ import React from 'react';
 import Header from './Components/Header';
 import Main from './Components/Main';
 
-function App() {
-  
+function App(): JSX.Element {
+
   return (
     <div>
-        <Header />
-        <Main />
+      <Header />
+      <Main />
     </div>
   );
 }

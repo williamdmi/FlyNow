@@ -2,7 +2,7 @@ import React from 'react';
 import '../Styles/Header.scss'
 
 
-function Header() {
+function Header(): JSX.Element {
 
   //Render the page header
   return (

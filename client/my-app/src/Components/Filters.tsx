@@ -3,7 +3,7 @@ import '../Styles/Filters.scss';
 import CheckList from './CheckList';
 import MultiRangeSlider from './MultiRangeSlider';
 
-class Filters extends React.Component<{ setFilterOptions: any }, {}> {
+class Filters extends React.Component<{ setFilterOptions: Function }, {}> {
     state = {
         priceRanges: [0, 0],
         selectedPriceRange: [],
@@ -23,30 +23,30 @@ class Filters extends React.Component<{ setFilterOptions: any }, {}> {
     }
 
     //Every component update check if states changed, if they did update the filter options in the parent
-    async componentDidUpdate(prevProps: any, prevState: any) {
+    componentDidUpdate(prevProps: any, prevState: any): void {
         if (prevState !== this.state) {
             this.props.setFilterOptions([this.state.selectedPriceRange, this.state.selectedAFNames, this.state.selectedStops]);
         }
     }
 
     //Set state to selected airelines
-    setSelectedAFNames = (selectedAFNames: Array<any>) => {
+    setSelectedAFNames = (selectedAFNames: Array<any>): void => {
         this.setState({ selectedAFNames: selectedAFNames });
     }
 
-    //Set state to selected numvber of stops
-    setSelectedStops = (selectedStops: Array<any>) => {
+    //Set state to selected number of stops
+    setSelectedStops = (selectedStops: Array<any>): void => {
         this.setState({ selectedStops: selectedStops });
     }
 
     //Set state to price range
-    setSelectedPriceRange = (min: any, max: any) => {
+    setSelectedPriceRange = (min: any, max: any): void => {
         if (!(this.state.selectedPriceRange[0] == min && this.state.selectedPriceRange[1] == max)) {
             this.setState({ selectedPriceRange: [min, max] });
         }
     }
 
-    render() {
+    render(): JSX.Element {
         return (
             <div className="filter-container">
                 <CheckList checkList={this.state.airlinesNames} setSelected={this.setSelectedAFNames} nameOfList="Airline:" />

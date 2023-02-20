@@ -36,7 +36,7 @@ class Main extends React.Component {
 
     //Filter an array by price and return the filtered array
     filterPrice(arrayToFilter: Array<any>, filterOptions: Array<any>): Array<any> {
-        return arrayToFilter.filter(element =>{
+        return arrayToFilter.filter(element => {
             return element["AveragePrice"] > Number(filterOptions[0]) && element["AveragePrice"] < Number(filterOptions[1]);
         });
     }
@@ -73,10 +73,9 @@ class Main extends React.Component {
 
     //Iterate through the filtered data and create a FlightContainer component array. Returns the FlightContainer array
     createFlightContainers(filtered_data: Array<any>) {
-        const result = filtered_data.map((element: any) => {
+        return filtered_data.map((element: any) => {
             return (<FlightContainer flightInfo={element} />);
         });
-        return result;
     }
 
     //Sets the filter options state
