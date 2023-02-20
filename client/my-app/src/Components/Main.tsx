@@ -36,18 +36,18 @@ class Main extends React.Component {
     }
 
     //Filter an array by price and return the filtered array
-    filterPrice(arrayToFilter: Array<any>, filterOptions: Array<any>): Array<any> {
+    filterPrice(arrayToFilter: Array<any>, minMaxArr: Array<any>): Array<any> {
         return arrayToFilter.filter(element => {
-            return element["AveragePrice"] > Number(filterOptions[0]) && element["AveragePrice"] < Number(filterOptions[1]);
+            return element["AveragePrice"] > Number(minMaxArr[0]) && element["AveragePrice"] < Number(minMaxArr[1]);
         });
     }
 
     //Filter an array by airline names and return the filtered array
-    filterAirlineName(arrayToFilter: Array<any>, filterOptions: Array<any>): Array<any> {
+    filterAirlineName(arrayToFilter: Array<any>, airlineNamesArr: Array<any>): Array<any> {
         let filteredArray: Array<any> = [];
         //Only filter if more than one checkbox is selected
-        if (filterOptions.length > 0) {
-            filterOptions.forEach(filterOption => {
+        if (airlineNamesArr.length > 0) {
+            airlineNamesArr.forEach(filterOption => {
                 filteredArray = filteredArray.concat(arrayToFilter.filter(element => {
                     return filterOption === element["Segments"]["Legs"][0]["AirlineName"];
                 }));
@@ -58,11 +58,11 @@ class Main extends React.Component {
     }
 
     //Filter an array by number of connections and return the filtered array
-    filterConnections(arrayToFilter: Array<any>, filterOptions: Array<any>): Array<any> {
+    filterConnections(arrayToFilter: Array<any>, numberOfConnectionsArr: Array<any>): Array<any> {
         let filteredArray: Array<any> = [];
         //Only filter if more than one checkbox is selected
-        if (filterOptions.length > 0) {
-            filterOptions.forEach(filterOption => {
+        if (numberOfConnectionsArr.length > 0) {
+            numberOfConnectionsArr.forEach(filterOption => {
                 filteredArray = filteredArray.concat(arrayToFilter.filter((element: any) => {
                     return filterOption == element["Segments"]["Legs"].length;
                 }));
