@@ -49,7 +49,11 @@ class Main extends React.Component {
         if (airlineNamesArr.length > 0) {
             airlineNamesArr.forEach(filterOption => {
                 filteredArray = filteredArray.concat(arrayToFilter.filter(element => {
-                    return filterOption === element["Segments"]["Legs"][0]["AirlineName"];
+                    return element["Segments"].map((segment: any) => {
+                        return segment["Legs"].map((leg: any) => {
+                            return leg["AirlineName"]
+                        })
+                    }).flat(1).includes(filterOption);
                 }));
             })
             return filteredArray;
@@ -64,7 +68,11 @@ class Main extends React.Component {
         if (numberOfConnectionsArr.length > 0) {
             numberOfConnectionsArr.forEach(filterOption => {
                 filteredArray = filteredArray.concat(arrayToFilter.filter((element: any) => {
-                    return filterOption == element["Segments"]["Legs"].length;
+                    let countConnections: number = 0;
+                    element["Segments"].forEach((segment: any) => {
+                        countConnections += segment["Legs"].length;
+                    })
+                    return filterOption == countConnections;
                 }));
             })
             return filteredArray;
