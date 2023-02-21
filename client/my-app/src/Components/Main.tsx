@@ -8,7 +8,7 @@ class Main extends React.Component {
         clean_data: [],
         filtered_data: [],
         flightContainers: [],
-        filterOptions: [[], [], []]
+        filterOptions: [[], [], [], []]
     };
 
     //On component mount fetch the data from the server and save it in the clean_data state
@@ -26,7 +26,7 @@ class Main extends React.Component {
 
     //Filter the data according to the selected filters. Update the filtered_data, flightContainers states
     filterData(): void {
-        const [minMaxPriceFilter, airlineNamesFilter, connectionsNumberFilter] = this.state.filterOptions;
+        const [minMaxPriceFilter, airlineNamesFilter, connectionsNumberFilter , waysFilter] = this.state.filterOptions;    
         const filtered_data: Array<any> = this.state.clean_data.filter((element: any) => {
 
             //Price filtering
@@ -37,6 +37,13 @@ class Main extends React.Component {
             //Airline name filtering
             if (airlineNamesFilter.length > 0) {
                 if (!this.filterAirlineName(airlineNamesFilter, element)) {
+                    return false;
+                }
+            }
+
+            //Filter ways
+            if (waysFilter.length > 0) {
+                if (!this.filterWays(waysFilter, element)) {
                     return false;
                 }
             }
@@ -70,6 +77,23 @@ class Main extends React.Component {
                     return leg["AirlineName"] === name;
                 })
             })
+        })) {
+            return true;
+        }
+        return false;
+    }
+
+    //Return true if the given element is matching one of the selected ways
+    filterWays(waysFilter: Array<string>, element: any): boolean {
+        if (waysFilter.some((name: string) => {
+            if (name === "One way") {
+                if (element["Segments"].length == 1) {
+                    return true;
+                }
+            }
+            else if (element["Segments"].length == 2) {
+                return true;
+            }
         })) {
             return true;
         }

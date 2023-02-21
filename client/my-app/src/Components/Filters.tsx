@@ -10,7 +10,8 @@ class Filters extends React.Component<{ setFilterOptions: Function }, {}> {
         airlinesNames: [],
         selectedAFNames: [],
         stops: [],
-        selectedStops: []
+        selectedStops: [],
+        selectedWay: []
     };
 
     //On component mount, fetch the filter options from the server and set them in states
@@ -25,7 +26,7 @@ class Filters extends React.Component<{ setFilterOptions: Function }, {}> {
     //Every component update check if states changed, if they did update the filter options in the parent
     componentDidUpdate(prevProps: any, prevState: any): void {
         if (prevState !== this.state) {
-            this.props.setFilterOptions([this.state.selectedPriceRange, this.state.selectedAFNames, this.state.selectedStops]);
+            this.props.setFilterOptions([this.state.selectedPriceRange, this.state.selectedAFNames, this.state.selectedStops , this.state.selectedWay]);
         }
     }
 
@@ -37,6 +38,11 @@ class Filters extends React.Component<{ setFilterOptions: Function }, {}> {
     //Set state to selected number of stops
     setSelectedStops = (selectedStops: Array<any>): void => {
         this.setState({ selectedStops: selectedStops });
+    }
+
+    //Set state to selected number of stops
+    setSelectedWay = (selectedWay: Array<any>): void => {
+        this.setState({ selectedWay: selectedWay });
     }
 
     //Set state to price range
@@ -51,6 +57,7 @@ class Filters extends React.Component<{ setFilterOptions: Function }, {}> {
             <div className="filter-container">
                 <CheckList checkList={this.state.airlinesNames} setSelected={this.setSelectedAFNames} nameOfList="Airline:" />
                 <CheckList checkList={this.state.stops} setSelected={this.setSelectedStops} nameOfList="Number of stops:" />
+                <CheckList checkList={["One way" , "Round Trip"]} setSelected={this.setSelectedWay} nameOfList="One way / Round trip:" />
                 <MultiRangeSlider min={0} max={3000} onChange={({ min, max }) => this.setSelectedPriceRange(min, max)} />
             </div>
         );
