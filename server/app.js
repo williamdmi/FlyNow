@@ -104,11 +104,7 @@ function getAllAirlines(clean_data) {
 //Returns an array of unique number of legs
 function getAllNumbersOfLegs(clean_data) {
     let arr = clean_data.map(element => {
-        let count = 0;
-        element["Segments"].forEach(segment => {
-            count += segment["Legs"].length;
-        })
-        return count;
+        return element["Segments"].reduce((count, segment) => count + segment["Legs"].length , 0)
     }).filter((value, index, self) => self.indexOf(value) === index).sort();
     return arr;
 }
