@@ -24,60 +24,42 @@ class Main extends React.Component {
         }
     }
 
-    //TODO: make more efficient
-    //Call to all the filtering functions and update the filtered_data, flightContainers states
-    filterData() {
-        let filtered_data: Array<any> = [...this.state.clean_data];
-        filtered_data = this.filterPrice(filtered_data, this.state.filterOptions[0]);
-        filtered_data = this.filterAirlineName(filtered_data, this.state.filterOptions[1]);
-        filtered_data = this.filterConnections(filtered_data, this.state.filterOptions[2]);
-        //Create new flight containers with the filtered data
-        this.setState({ filtered_data: filtered_data, flightContainers: this.createFlightContainers(filtered_data) });
-    }
+    //Filter the data according to the selected filters. Update the filtered_data, flightContainers states
+    filterData(): void {
+        const [minMaxPriceFilter, airlineNamesFilter, connectionsNumberFilter] = this.state.filterOptions;
+        const filtered_data: Array<any> = this.state.clean_data.filter((element: any) => {
 
-    //Filter an array by price and return the filtered array
-    filterPrice(arrayToFilter: Array<any>, minMaxArr: Array<any>): Array<any> {
-        return arrayToFilter.filter(element => {
-            return element["AveragePrice"] > Number(minMaxArr[0]) && element["AveragePrice"] < Number(minMaxArr[1]);
-        });
-    }
+            //Price filtering
+            if (!(element["AveragePrice"] > Number(minMaxPriceFilter[0]) && element["AveragePrice"] < Number(minMaxPriceFilter[1]))) {
+                return false;
+            }
 
-    //Filter an array by airline names and return the filtered array
-    filterAirlineName(arrayToFilter: Array<any>, airlineNamesArr: Array<any>): Array<any> {
-        let filteredArray: Array<any> = [];
-        //Only filter if more than one checkbox is selected
-        if (airlineNamesArr.length > 0) {
-            airlineNamesArr.forEach(filterOption => {
-                filteredArray = filteredArray.concat(arrayToFilter.filter(element => {
-                    return element["Segments"].map((segment: any) => {
-                        return segment["Legs"].map((leg: any) => {
-                            return leg["AirlineName"]
+            //Airline name filtering
+            if (airlineNamesFilter.length > 0) {
+                if (!airlineNamesFilter.some((name: string) => {
+                    return element["Segments"].some((segment: any) => {
+                        return segment["Legs"].some((leg: any) => {
+                            return leg["AirlineName"] === name;
                         })
-                    }).flat(1).includes(filterOption);
-                }));
-            })
-            return filteredArray;
-        }
-        return arrayToFilter;
-    }
-
-    //Filter an array by number of connections and return the filtered array
-    filterConnections(arrayToFilter: Array<any>, numberOfConnectionsArr: Array<any>): Array<any> {
-        let filteredArray: Array<any> = [];
-        //Only filter if more than one checkbox is selected
-        if (numberOfConnectionsArr.length > 0) {
-            numberOfConnectionsArr.forEach(filterOption => {
-                filteredArray = filteredArray.concat(arrayToFilter.filter((element: any) => {
-                    let countConnections: number = 0;
-                    element["Segments"].forEach((segment: any) => {
-                        countConnections += segment["Legs"].length;
                     })
-                    return filterOption == countConnections;
-                }));
-            })
-            return filteredArray;
-        }
-        return arrayToFilter;
+                })) {
+                    return false;
+                }
+            }
+
+            //Number of connections filtering 
+            if (connectionsNumberFilter.length > 0) {
+                if (!connectionsNumberFilter.some((connectionsNumberFilter: number) => {
+                    return element["Segments"].reduce((count: number, segment: any) => count + segment["Legs"].length, 0) == connectionsNumberFilter;
+                })) {
+                    return false;
+                }
+            }
+
+            return true;
+        })
+        this.setState({ filtered_data: filtered_data, flightContainers: this.createFlightContainers(filtered_data) });
+
     }
 
     //Iterate through the filtered data and create a FlightContainer component array. Returns the FlightContainer array
