@@ -30,28 +30,20 @@ class Main extends React.Component {
         const filtered_data: Array<any> = this.state.clean_data.filter((element: any) => {
 
             //Price filtering
-            if (!(element["AveragePrice"] > Number(minMaxPriceFilter[0]) && element["AveragePrice"] < Number(minMaxPriceFilter[1]))) {
+            if (!this.filterPrice(minMaxPriceFilter, element)) {
                 return false;
             }
 
             //Airline name filtering
             if (airlineNamesFilter.length > 0) {
-                if (!airlineNamesFilter.some((name: string) => {
-                    return element["Segments"].some((segment: any) => {
-                        return segment["Legs"].some((leg: any) => {
-                            return leg["AirlineName"] === name;
-                        })
-                    })
-                })) {
+                if (!this.filterAirlineName(airlineNamesFilter, element)) {
                     return false;
                 }
             }
 
             //Number of connections filtering 
             if (connectionsNumberFilter.length > 0) {
-                if (!connectionsNumberFilter.some((connectionsNumberFilter: number) => {
-                    return element["Segments"].reduce((count: number, segment: any) => count + segment["Legs"].length, 0) == connectionsNumberFilter;
-                })) {
+                if (!this.filterConnections(connectionsNumberFilter, element)) {
                     return false;
                 }
             }
@@ -60,6 +52,38 @@ class Main extends React.Component {
         })
         this.setState({ filtered_data: filtered_data, flightContainers: this.createFlightContainers(filtered_data) });
 
+    }
+
+    //Return true if the given element is between the seleced price range
+    filterPrice(minMaxPriceFilter: Array<Number>, element: any): boolean {
+        if ((element["AveragePrice"] > Number(minMaxPriceFilter[0]) && element["AveragePrice"] < Number(minMaxPriceFilter[1]))) {
+            return true;
+        }
+        return false;
+    }
+
+    //Return true if the given element is matching one of the selected airlines
+    filterAirlineName(airlineNamesFilter: Array<string>, element: any): boolean {
+        if (airlineNamesFilter.some((name: string) => {
+            return element["Segments"].some((segment: any) => {
+                return segment["Legs"].some((leg: any) => {
+                    return leg["AirlineName"] === name;
+                })
+            })
+        })) {
+            return true;
+        }
+        return false;
+    }
+
+    //Return true if the given element is matching one of the selected connections number
+    filterConnections(connectionsNumberFilter: Array<number>, element: any): boolean {
+        if (connectionsNumberFilter.some((connectionsNumberFilter: number) => {
+            return element["Segments"].reduce((count: number, segment: any) => count + segment["Legs"].length, 0) == connectionsNumberFilter;
+        })) {
+            return true;
+        }
+        return false;
     }
 
     //Iterate through the filtered data and create a FlightContainer component array. Returns the FlightContainer array
