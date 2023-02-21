@@ -41,7 +41,7 @@ class Main extends React.Component {
                 }
             }
 
-            //Filter ways
+            //Filter RT/OW
             if (waysFilter.length > 0) {
                 if (!this.filterWays(waysFilter, element)) {
                     return false;
@@ -87,13 +87,14 @@ class Main extends React.Component {
     filterWays(waysFilter: Array<string>, element: any): boolean {
         if (waysFilter.some((name: string) => {
             if (name === "One way") {
-                if (element["Segments"].length == 1) {
+                if (element["Segments"].length === 1) {
                     return true;
                 }
             }
-            else if (element["Segments"].length == 2) {
+            else if (element["Segments"].length === 2) {
                 return true;
             }
+            return false;
         })) {
             return true;
         }
