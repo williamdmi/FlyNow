@@ -40,8 +40,8 @@ class Filters extends React.Component<{ setFilterOptions: Function }, {}> {
     }
 
     //Set state to price range
-    setSelectedPriceRange = (min: any, max: any): void => {
-        if (!(this.state.selectedPriceRange[0] == min && this.state.selectedPriceRange[1] == max)) {
+    setSelectedPriceRange = (min: number, max: number): void => {
+        if (!(this.state.selectedPriceRange[0] === min && this.state.selectedPriceRange[1] === max)) {
             this.setState({ selectedPriceRange: [min, max] });
         }
     }

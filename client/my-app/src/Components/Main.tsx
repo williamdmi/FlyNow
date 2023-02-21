@@ -79,7 +79,7 @@ class Main extends React.Component {
     //Return true if the given element is matching one of the selected connections number
     filterConnections(connectionsNumberFilter: Array<number>, element: any): boolean {
         if (connectionsNumberFilter.some((connectionsNumberFilter: number) => {
-            return element["Segments"].reduce((count: number, segment: any) => count + segment["Legs"].length, 0) == connectionsNumberFilter;
+            return element["Segments"].reduce((count: number, segment: any) => count + segment["Legs"].length, 0) === Number(connectionsNumberFilter);
         })) {
             return true;
         }

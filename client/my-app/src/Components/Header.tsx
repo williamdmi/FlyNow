@@ -8,7 +8,7 @@ function Header(): JSX.Element {
   return (
     <div className="header">
       <h1>FlyNow</h1>
-      <img src="plane.png"></img>
+      <img alt="" src="plane.png"></img>
     </div>
   );
 }
